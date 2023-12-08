@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "@webcomponents/webcomponentsjs": "^2.8.0",
+    "lit-element": "^4.0.2",
+    "lit-html": "^3.1.0"
+  },
+  "name": "my-wishlist-component",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "wds --node-resolve --watch --open"
+  },
+  "author": "Ezequiel",
+  "license": "UNLICENSED",
+  "description": "",
+  "devDependencies": {
+    "@web/dev-server": "^0.4.1"
+  }
+}
