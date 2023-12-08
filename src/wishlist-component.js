@@ -43,7 +43,10 @@ export class WishListComponent extends LitElement {
         background-color: #E6F7FF;
         border-radius: 10px;
         cursor: pointer;
-
+        color: #fff;
+        background: #0d6efd;
+        border:none;
+        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
       }
       .btn-delete:hover{
         background-color: #68B9C7;
@@ -119,7 +122,7 @@ export class WishListComponent extends LitElement {
         ${listaTareasArr}
       </div>
       <div class="btn-container">
-        <button class="btn-delete" @click=${this.removeCheckBox}>Archive done</button></div>
+        <button class="btn-delete btn btn-primary" @click=${this.removeCheckBox}>Archivar actividad</button></div>
 
       </div>
       
