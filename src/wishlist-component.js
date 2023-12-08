@@ -12,7 +12,8 @@ export class WishListComponent extends LitElement {
       background-color: #EAFCFF;
       justify-content: center;
       max-height: 600px;
-      overflow: scroll;
+      border-radius: 10px;
+      padding: 15px;
     }
     .title {
       text-align: center;
@@ -110,7 +111,7 @@ export class WishListComponent extends LitElement {
 
     return html`
     <div class="main-container">
-      <h1 class="title">My wishlist</h1>
+      <h1 class="title">Registros</h1>
       
       <wishlist-input class="input-text" id="inputText" value=${this.miDato} @keydown="${this.inputKeyDown}"></wishlist-input>
       
