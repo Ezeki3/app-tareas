@@ -91,6 +91,7 @@ export class WishListComponent extends LitElement {
       listaTareasArr.push(html`
       <input type="checkbox" class="item" id='cb_${this.miDato}' @change=${(event) => this.setTimer(event,index)}><label class="label" id="label">${tareas}</label><br>`);
         try {
+          console.log('index', index)
           if(index === this.listaTareas.length -1){
             this.timers[index] = {
               timeout1: setTimeout(()=>{
