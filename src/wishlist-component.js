@@ -14,6 +14,7 @@ export class WishListComponent extends LitElement {
       max-height: 600px;
       border-radius: 10px;
       padding: 15px;
+      overflow-y:auto;
     }
     .title {
       text-align: center;
@@ -74,7 +75,8 @@ export class WishListComponent extends LitElement {
   static get properties(){
     return {
       miDato: {type: String},
-      listaTareas : { type: Array}
+      listaTareas : { type: Array},
+      listaTareasArr: {type: Array},
     };
   }
 
@@ -83,19 +85,29 @@ export class WishListComponent extends LitElement {
     this.miDato = ' ';
     this.listaTareas= [];
     this.timers = [];
+    this.listaTareasArr = [];
   }
 
-  render() {
+  render() {    
     var listaTareasArr = [];
-    this.listaTareas.forEach((tareas, index)=>{
+    this.listaTareas.forEach((tarea, index)=>{
       listaTareasArr.push(html`
-      <input type="checkbox" class="item" id='cb_${this.miDato}' @change=${(event) => this.setTimer(event,index)}><label class="label" id="label">${tareas}</label><br>`);
+        
+          <div style="display:flex; ">
+            <input type="checkbox" class="item" id='cb_${this.miDato}' @change=${(event) => 
+            this.setTimer(event,index)}>
+            <label class="label" id="label">${tarea}</label> 
+            <button class="btn btn-danger" @click=${() => this.deleteTask(index)}>X</button>
+          </div>
+          <br>`
+        );
+        console.log('listaTareas', listaTareasArr)
         try {
           console.log('index', index)
           if(index === this.listaTareas.length -1){
             this.timers[index] = {
               timeout1: setTimeout(()=>{
-                console.log('1');
+                console.log('1', );
                 this.colors(index, '#9AD576');
               },2000),
               timeout2: setTimeout(()=>{
@@ -103,7 +115,7 @@ export class WishListComponent extends LitElement {
               },5000),
               timeout3: setTimeout(()=>{
                 this.colors(index, '#F97171');
-              },8000)
+              },8000),
             };
           }
         } catch (error) {
@@ -142,6 +154,7 @@ export class WishListComponent extends LitElement {
     this.miDato = '';
     e.target.value = '';
   }
+
   setTimer(event, index) {
     
     const labels = this.shadowRoot.querySelectorAll('.item + label');
@@ -159,14 +172,16 @@ export class WishListComponent extends LitElement {
       
     }
   }
+
   colors(index, color) {
     try {
       const label = this.shadowRoot.querySelectorAll('.item + label');
-    label[index].style.background = color;
+      label[index].style.background = color;
     } catch (error) {
+      console.log(error);
     }
-    
-}
+      
+  }
   removeCheckBox(){
     /*
     let checkBox = this.shadowRoot.getElementById('taskContainer');
@@ -177,6 +192,24 @@ export class WishListComponent extends LitElement {
     this.listaTareas = [];
   }
 
+  deleteTask(index) {
+    console.log(index);
+    this.listaTareas.splice(index, 1);
+  
+    // Actualizar listaTareasArr para reflejar los cambios
+    this.listaTareasArr = this.listaTareas.map((tarea, i) => html`
+      <input type="checkbox" class="item" id='cb_${this.miDato}' @change=${(event) => 
+        this.setTimer(event, i)}>
+      <label class="label" id="label">${tarea}</label> 
+      <div>
+        <button class="btn btn-danger" @click=${() => this.deleteTask(i)}>X</button>
+      </div>
+      <br>
+    `);
+  
+    console.log(this.listaTareas);
+  }
+  
 }
 customElements.define('wishlist-component' , WishListComponent);
 
